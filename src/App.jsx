@@ -34,17 +34,17 @@ function getFieldState(input, validator) {
 function Field({ id, label, value, error, onChange }) {
   return (
     <div className="col-sm-6 text-center">
-      <label htmlFor={id} className="ascf-label mb-1">{label}</label>
+      <label htmlFor={id} className="atcf-label mb-1">{label}</label>
       <input
         id={id}
         name={id}
         type="text"
         inputMode="decimal"
-        className={`form-control ascf-input ${error ? 'is-invalid' : ''}`}
+        className={`form-control atcf-input ${error ? 'is-invalid' : ''}`}
         value={value}
         onChange={onChange}
       />
-      {error && <div className="invalid-feedback ascf-error">{error}</div>}
+      {error && <div className="invalid-feedback atcf-error">{error}</div>}
     </div>
   );
 }
@@ -89,11 +89,11 @@ function App() {
   const unitLabel = UNIT_LABELS[form.unit];
 
   return (
-    <main className="ascf-app">
+    <main className="atcf-app">
       <div className="container" style={{ maxWidth: '640px' }}>
-        <h1 className="ascf-title">As The Crow Flies</h1>
+        <h1 className="atcf-title">As The Crow Flies</h1>
 
-        <div className="ascf-units" role="radiogroup" aria-label="Unit">
+        <div className="atcf-units" role="radiogroup" aria-label="Unit">
           {UNITS.map((unit) => (
             <div className="form-check form-check-inline" key={unit.value}>
               <input
@@ -105,7 +105,7 @@ function App() {
                 checked={form.unit === unit.value}
                 onChange={handleChange}
               />
-              <label className="form-check-label ascf-label" htmlFor={`unit-${unit.value}`}>
+              <label className="form-check-label atcf-label" htmlFor={`unit-${unit.value}`}>
                 {unit.label}
               </label>
             </div>
@@ -113,7 +113,7 @@ function App() {
         </div>
 
         <fieldset className="mb-4">
-          <legend className="ascf-label ascf-legend">Point 1</legend>
+          <legend className="atcf-label atcf-legend">Point 1</legend>
           <div className="row g-4">
             <Field id="latA" label="Latitude" value={form.latA} error={latA.error} onChange={handleChange} />
             <Field id="lonA" label="Longitude" value={form.lonA} error={lonA.error} onChange={handleChange} />
@@ -121,7 +121,7 @@ function App() {
         </fieldset>
 
         <fieldset className="mb-4">
-          <legend className="ascf-label ascf-legend">Point 2</legend>
+          <legend className="atcf-label atcf-legend">Point 2</legend>
           <div className="row g-4">
             <Field id="latB" label="Latitude" value={form.latB} error={latB.error} onChange={handleChange} />
             <Field id="lonB" label="Longitude" value={form.lonB} error={lonB.error} onChange={handleChange} />
@@ -138,27 +138,27 @@ function App() {
           />
         </div>
 
-        <h2 className="ascf-label ascf-result-heading">Result</h2>
-        <div className="ascf-result" role="status">
+        <h2 className="atcf-label atcf-result-heading">Result</h2>
+        <div className="atcf-result" role="status">
           {result ? (
             <>
-              <div className="ascf-distance">
+              <div className="atcf-distance">
                 {result.distance.toFixed(2)} {unitLabel}
               </div>
-              {result.withinRange === true && <div className="ascf-status ascf-ok">✓ Within range</div>}
+              {result.withinRange === true && <div className="atcf-status atcf-ok">✓ Within range</div>}
               {result.withinRange === false && (
-                <div className="ascf-status ascf-bad">
+                <div className="atcf-status atcf-bad">
                   ✗ Out of range by {(result.distance - result.maxDistance).toFixed(2)} {unitLabel}
                 </div>
               )}
             </>
           ) : (
-            <span className="ascf-placeholder">Enter both points</span>
+            <span className="atcf-placeholder">Enter both points</span>
           )}
         </div>
 
         <div className="text-center mt-4">
-          <button type="button" className="btn ascf-clear" onClick={handleClear}>
+          <button type="button" className="btn atcf-clear" onClick={handleClear}>
             Clear
           </button>
         </div>
