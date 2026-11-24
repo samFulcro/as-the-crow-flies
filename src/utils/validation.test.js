@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { validateLatitude, validateLongitude } from './validation';
+import { validateLatitude, validateLongitude, validateMaxDistance } from './validation';
 
 describe('validateLatitude', () => {
   it('accepts a valid latitude', () => {
@@ -38,5 +38,24 @@ describe('validateLongitude', () => {
       valid: false,
       error: 'Longitude must be between -180 and 180.',
     });
+  });
+});
+
+describe('validateMaxDistance', () => {
+  it('allows a blank value because the field is optional', () => {
+    expect(validateMaxDistance('')).toEqual({ valid: true, value: null });
+  });
+
+  it('accepts a positive number', () => {
+    expect(validateMaxDistance('25')).toEqual({ valid: true, value: 25 });
+  });
+
+  it('rejects zero or negative numbers', () => {
+    expect(validateMaxDistance('0').valid).toBe(false);
+    expect(validateMaxDistance('-5').valid).toBe(false);
+  });
+
+  it('rejects non-numeric input', () => {
+    expect(validateMaxDistance('abc')).toEqual({ valid: false, error: 'Please enter a number.' });
   });
 });

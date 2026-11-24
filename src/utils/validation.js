@@ -33,3 +33,28 @@ export function validateLatitude(input) {
 export function validateLongitude(input) {
   return validateCoordinate(input, 'Longitude', -180, 180);
 }
+
+/**
+ * Validates the optional maximum distance field.
+ * @param {string} input - Raw value from the form field
+ * @returns {{ valid: true, value: number | null } | { valid: false, error: string }}
+ */
+export function validateMaxDistance(input) {
+  const trimmed = String(input).trim();
+
+  if (trimmed === '') {
+    return { valid: true, value: null };
+  }
+
+  const value = Number(trimmed);
+
+  if (Number.isNaN(value)) {
+    return { valid: false, error: 'Please enter a number.' };
+  }
+
+  if (value <= 0) {
+    return { valid: false, error: 'Maximum distance must be greater than 0.' };
+  }
+
+  return { valid: true, value };
+}
