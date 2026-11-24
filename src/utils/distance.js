@@ -1,4 +1,9 @@
 const EARTH_RADIUS_KM = 6371;
+const CONVERSION_FACTORS = {
+  km: 1,
+  miles: 0.621371,
+  nm: 0.539957,
+};
 
 /**
  * Converts an angle from degrees to radians.
@@ -29,4 +34,31 @@ export function haversineKm(lat1, lon1, lat2, lon2) {
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
   return EARTH_RADIUS_KM * c;
+}
+
+/**
+ * Converts a distance in kilometres to the chosen unit.
+ * @param {number} km - Distance in kilometres
+ * @param {'km' | 'miles' | 'nm'} unit - Unit to convert to
+ * @returns {number} Distance in the chosen unit
+ */
+export function convertDistance(km, unit) {
+  const factor = CONVERSION_FACTORS[unit];
+
+  if (factor === undefined) {
+    throw new Error(`Unknown unit: ${unit}`);
+  }
+
+  return km * factor;
+}
+
+/**
+ * Checks whether a distance is within the maximum allowed distance.
+ * Both values must be in the same unit.
+ * @param {number} distance
+ * @param {number} maxDistance
+ * @returns {boolean}
+ */
+export function isWithinRange(distance, maxDistance) {
+  return distance <= maxDistance;
 }
